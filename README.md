@@ -30,3 +30,17 @@ GymPass style app.
 - [ ] Os dados da aplicação precisam estar persistidos em um banco PostgreSQL;
 - [ ] Todas listas de dados precisam estar paginadas com 20 itens por página;
 - [ ] O usuário deve ser identificado por um JWT (JSON Web Token);
+
+# Docker
+
+### Start Docket image
+
+```bash
+docker run --name api-solid-pg -e POSTGRESQL_USERNAME=<user_name> -e POSTGRESQL_PASSWORD=<password> -e POSTGRESQL_DATABASE=<database_name> -p 5432:5432 bitnami/postgresql:latest
+```
+
+### Run Docker Image
+
+```bash
+docker start api-solid-pg
+```
