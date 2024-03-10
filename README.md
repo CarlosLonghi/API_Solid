@@ -31,16 +31,60 @@ GymPass style app.
 - [ ] Todas listas de dados precisam estar paginadas com 20 itens por página;
 - [ ] O usuário deve ser identificado por um JWT (JSON Web Token);
 
-# Docker
+# Docker Image
 
-### Start Docket image
+## Option 1 (Using Docker Compose):
+
+- Start / Run
+
+```bash
+docker compose up -d
+```
+
+- Stop
+
+```bash
+docker compose stop
+```
+
+---
+
+## Option 2 (Using Only CLI):
+
+- Start
 
 ```bash
 docker run --name api-solid-pg -e POSTGRESQL_USERNAME=<user_name> -e POSTGRESQL_PASSWORD=<password> -e POSTGRESQL_DATABASE=<database_name> -p 5432:5432 bitnami/postgresql:latest
 ```
 
-### Run Docker Image
+- Run
 
 ```bash
 docker start api-solid-pg
+```
+
+- Stop
+
+```bash
+docker stop api-solid-pg
+```
+
+---
+
+# Migrations
+
+- Run
+
+```bash
+npx prisma migrate dev
+```
+
+---
+
+# Database View
+
+- Run
+
+```bash
+npx prisma studio
 ```
