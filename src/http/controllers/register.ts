@@ -27,7 +27,8 @@ export async function register (request: FastifyRequest, reply: FastifyReply) {
       return await reply.status(409).send({ message: error.message })
     }
 
-    return await reply.status(500).send()
+    throw error
+    // return await reply.status(500).send()
   }
   return await reply.status(201).send()
 }
