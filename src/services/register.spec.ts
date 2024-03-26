@@ -1,31 +1,32 @@
 import { expect, describe, it } from 'vitest'
 import { RegisterService } from './register'
 import { compare } from 'bcryptjs'
+import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
+import { UserAlreadyExists } from './errors/user-already-exists'
 
 // Unit Tests
 
 describe('Register Service', () => {
-  it('should hash user password upon registration', async () => {
-    const registerService = new RegisterService({
-      async create (data) {
-        return {
-          id: 'user-1',
-          name: data.name,
-          email: data.email,
-          password_hash: data.password_hash,
-          created_at: new Date(),
-          updated_at: new Date()
-        }
-      },
-
-      async fyndByEmail (email) {
-        return null
-      }
-    })
+  it('should be able to register', async () => {
+    const usersRepository = new InMemoryUsersRepository()
+    const registerService = new RegisterService(usersRepository)
 
     const { user } = await registerService.execute({
-      name: 'Ciclano',
-      email: 'ciclano@gmail.com',
+      name: 'Nome Teste',
+      email: 'teste@exemplo.com',
+      password: '123456'
+    })
+
+    expect(user.id).toEqual(expect.any(String))
+  })
+
+  it('should hash user password upon registration', async () => {
+    const usersRepository = new InMemoryUsersRepository()
+    const registerService = new RegisterService(usersRepository)
+
+    const { user } = await registerService.execute({
+      name: 'Nome Teste',
+      email: 'teste@exemplo.com',
       password: '123456'
     })
 
@@ -35,5 +36,26 @@ describe('Register Service', () => {
     )
 
     expect(isPasswordCorrectlyHashed).toBe(true)
+  })
+
+  it('should not be able to register with same email twice', async () => {
+    const usersRepository = new InMemoryUsersRepository()
+    const registerService = new RegisterService(usersRepository)
+
+    const email = 'teste@exemplo.com'
+
+    await registerService.execute({
+      name: 'Nome Teste',
+      email,
+      password: '123456'
+    })
+
+    void expect(
+      registerService.execute({
+        name: 'Nome Teste',
+        email,
+        password: '123456'
+      })
+    ).rejects.toBeInstanceOf(UserAlreadyExists)
   })
 })
