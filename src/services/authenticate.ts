@@ -27,7 +27,7 @@ export class AuthenticateService {
     // Clean Code: Boolean variables need start with => "is", "has" or "does"
     const doesPasswordMatches = await compare(password, user.password_hash)
 
-    if (doesPasswordMatches === null) {
+    if (!doesPasswordMatches) {
       throw new InvalidCredentials()
     }
 
