@@ -18,7 +18,7 @@ export class AuthenticateService {
   ) {}
 
   async execute ({ email, password }: AuthenticateServiceRequest): Promise<AuthenticateServiceResponse> {
-    const user = await this.usersRepository.fyndByEmail(email)
+    const user = await this.usersRepository.findByEmail(email)
 
     if (user === null) {
       throw new InvalidCredentials()

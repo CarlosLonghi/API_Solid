@@ -23,7 +23,7 @@ export class RegisterService {
   }: RegisterServiceProps): Promise<RegisterServiceResponse> {
     const passwordHashed = await hash(password, 6)
 
-    const userWithSameEmail = await this.usersRepository.fyndByEmail(email)
+    const userWithSameEmail = await this.usersRepository.findByEmail(email)
 
     if (userWithSameEmail !== null) {
       throw new UserAlreadyExists()
