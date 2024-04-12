@@ -3,6 +3,7 @@ import { type CheckInsRepository } from '@/repositories/check-ins-repository'
 
 interface FetchUserCheckInsHistoryServiceRequest {
   userId: string
+  page: number
 }
 
 interface FetchUserCheckInsHistoryServiceResponse {
@@ -15,9 +16,10 @@ export class FetchUserCheckInsHistoryService {
   ) {}
 
   async execute ({
-    userId
+    userId,
+    page
   }: FetchUserCheckInsHistoryServiceRequest): Promise<FetchUserCheckInsHistoryServiceResponse> {
-    const checkIns = await this.checkInsRepository.findManyByUserId(userId)
+    const checkIns = await this.checkInsRepository.findManyByUserId(userId, page)
 
     return {
       checkIns
