@@ -40,4 +40,27 @@ describe('Search Gyms Service', () => {
       expect.objectContaining({ title: 'gym-01' })
     ])
   })
+
+  it.skip('should be able to fetch paginated gyms search', async () => {
+    for (let i = 1; i <= 22; i++) {
+      await gymsRepository.create({
+        title: `gym-${i}`,
+        description: null,
+        phone: '',
+        latitude: -23.6829801,
+        longitude: -52.62905
+      })
+    }
+
+    const { gyms } = await searchGymsService.execute({
+      query: 'gym',
+      page: 2
+    })
+
+    expect(gyms).toHaveLength(2)
+    expect(gyms).toEqual([
+      expect.objectContaining({ title: 'gym-21' }),
+      expect.objectContaining({ title: 'gym-22' })
+    ])
+  })
 })
