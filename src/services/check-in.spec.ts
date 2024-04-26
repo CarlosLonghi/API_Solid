@@ -22,7 +22,7 @@ describe('Check-in Service', () => {
     await gymsRepository.create({
       id: 'gym-01',
       title: 'Fit Gym',
-      description: '',
+      description: null,
       phone: '',
       latitude: -23.6829801,
       longitude: -52.62905
@@ -94,7 +94,7 @@ describe('Check-in Service', () => {
     gymsRepository.items.push({
       id: 'gym-02',
       title: 'Fit Gym',
-      description: '',
+      description: null,
       phone: '',
       latitude: new Decimal(-23.5966649),
       longitude: new Decimal(-52.5190246)

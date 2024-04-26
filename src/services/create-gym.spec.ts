@@ -17,7 +17,7 @@ describe('Create Gym Service', () => {
     const { gym } = await createGymService.execute({
       title: 'Fit Gym',
       description: null,
-      phone: null,
+      phone: '',
       latitude: -23.6829801,
       longitude: -52.62905
     })
